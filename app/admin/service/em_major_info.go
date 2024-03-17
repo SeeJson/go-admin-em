@@ -3,7 +3,7 @@ package service
 import (
 	"errors"
 
-    "github.com/go-admin-team/go-admin-core/sdk/service"
+	"github.com/go-admin-team/go-admin-core/sdk/service"
 	"gorm.io/gorm"
 
 	"go-admin/app/admin/models"
@@ -59,9 +59,9 @@ func (e *EmMajorInfo) Get(d *dto.EmMajorInfoGetReq, p *actions.DataPermission, m
 
 // Insert 创建EmMajorInfo对象
 func (e *EmMajorInfo) Insert(c *dto.EmMajorInfoInsertReq) error {
-    var err error
-    var data models.EmMajorInfo
-    c.Generate(&data)
+	var err error
+	var data models.EmMajorInfo
+	c.Generate(&data)
 	err = e.Orm.Create(&data).Error
 	if err != nil {
 		e.Log.Errorf("EmMajorInfoService Insert error:%s \r\n", err)
@@ -72,22 +72,22 @@ func (e *EmMajorInfo) Insert(c *dto.EmMajorInfoInsertReq) error {
 
 // Update 修改EmMajorInfo对象
 func (e *EmMajorInfo) Update(c *dto.EmMajorInfoUpdateReq, p *actions.DataPermission) error {
-    var err error
-    var data = models.EmMajorInfo{}
-    e.Orm.Scopes(
-            actions.Permission(data.TableName(), p),
-        ).First(&data, c.GetId())
-    c.Generate(&data)
+	var err error
+	var data = models.EmMajorInfo{}
+	e.Orm.Scopes(
+		actions.Permission(data.TableName(), p),
+	).First(&data, c.GetId())
+	c.Generate(&data)
 
-    db := e.Orm.Save(&data)
-    if err = db.Error; err != nil {
-        e.Log.Errorf("EmMajorInfoService Save error:%s \r\n", err)
-        return err
-    }
-    if db.RowsAffected == 0 {
-        return errors.New("无权更新该数据")
-    }
-    return nil
+	db := e.Orm.Save(&data)
+	if err = db.Error; err != nil {
+		e.Log.Errorf("EmMajorInfoService Save error:%s \r\n", err)
+		return err
+	}
+	if db.RowsAffected == 0 {
+		return errors.New("无权更新该数据")
+	}
+	return nil
 }
 
 // Remove 删除EmMajorInfo
@@ -99,11 +99,11 @@ func (e *EmMajorInfo) Remove(d *dto.EmMajorInfoDeleteReq, p *actions.DataPermiss
 			actions.Permission(data.TableName(), p),
 		).Delete(&data, d.GetId())
 	if err := db.Error; err != nil {
-        e.Log.Errorf("Service RemoveEmMajorInfo error:%s \r\n", err)
-        return err
-    }
-    if db.RowsAffected == 0 {
-        return errors.New("无权删除该数据")
-    }
+		e.Log.Errorf("Service RemoveEmMajorInfo error:%s \r\n", err)
+		return err
+	}
+	if db.RowsAffected == 0 {
+		return errors.New("无权删除该数据")
+	}
 	return nil
 }

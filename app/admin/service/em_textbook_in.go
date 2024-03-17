@@ -3,7 +3,7 @@ package service
 import (
 	"errors"
 
-    "github.com/go-admin-team/go-admin-core/sdk/service"
+	"github.com/go-admin-team/go-admin-core/sdk/service"
 	"gorm.io/gorm"
 
 	"go-admin/app/admin/models"
@@ -59,9 +59,9 @@ func (e *EmTextbookIn) Get(d *dto.EmTextbookInGetReq, p *actions.DataPermission,
 
 // Insert 创建EmTextbookIn对象
 func (e *EmTextbookIn) Insert(c *dto.EmTextbookInInsertReq) error {
-    var err error
-    var data models.EmTextbookIn
-    c.Generate(&data)
+	var err error
+	var data models.EmTextbookIn
+	c.Generate(&data)
 	err = e.Orm.Create(&data).Error
 	if err != nil {
 		e.Log.Errorf("EmTextbookInService Insert error:%s \r\n", err)
@@ -72,22 +72,22 @@ func (e *EmTextbookIn) Insert(c *dto.EmTextbookInInsertReq) error {
 
 // Update 修改EmTextbookIn对象
 func (e *EmTextbookIn) Update(c *dto.EmTextbookInUpdateReq, p *actions.DataPermission) error {
-    var err error
-    var data = models.EmTextbookIn{}
-    e.Orm.Scopes(
-            actions.Permission(data.TableName(), p),
-        ).First(&data, c.GetId())
-    c.Generate(&data)
+	var err error
+	var data = models.EmTextbookIn{}
+	e.Orm.Scopes(
+		actions.Permission(data.TableName(), p),
+	).First(&data, c.GetId())
+	c.Generate(&data)
 
-    db := e.Orm.Save(&data)
-    if err = db.Error; err != nil {
-        e.Log.Errorf("EmTextbookInService Save error:%s \r\n", err)
-        return err
-    }
-    if db.RowsAffected == 0 {
-        return errors.New("无权更新该数据")
-    }
-    return nil
+	db := e.Orm.Save(&data)
+	if err = db.Error; err != nil {
+		e.Log.Errorf("EmTextbookInService Save error:%s \r\n", err)
+		return err
+	}
+	if db.RowsAffected == 0 {
+		return errors.New("无权更新该数据")
+	}
+	return nil
 }
 
 // Remove 删除EmTextbookIn
@@ -99,11 +99,11 @@ func (e *EmTextbookIn) Remove(d *dto.EmTextbookInDeleteReq, p *actions.DataPermi
 			actions.Permission(data.TableName(), p),
 		).Delete(&data, d.GetId())
 	if err := db.Error; err != nil {
-        e.Log.Errorf("Service RemoveEmTextbookIn error:%s \r\n", err)
-        return err
-    }
-    if db.RowsAffected == 0 {
-        return errors.New("无权删除该数据")
-    }
+		e.Log.Errorf("Service RemoveEmTextbookIn error:%s \r\n", err)
+		return err
+	}
+	if db.RowsAffected == 0 {
+		return errors.New("无权删除该数据")
+	}
 	return nil
 }

@@ -1,7 +1,7 @@
 package apis
 
 import (
-    "fmt"
+	"fmt"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-admin-team/go-admin-core/sdk/api"
@@ -30,18 +30,18 @@ type EmTextbookOn struct {
 // @Router /api/v1/em-textbook-on [get]
 // @Security Bearer
 func (e EmTextbookOn) GetPage(c *gin.Context) {
-    req := dto.EmTextbookOnGetPageReq{}
-    s := service.EmTextbookOn{}
-    err := e.MakeContext(c).
-        MakeOrm().
-        Bind(&req).
-        MakeService(&s.Service).
-        Errors
-   	if err != nil {
-   		e.Logger.Error(err)
-   		e.Error(500, err, err.Error())
-   		return
-   	}
+	req := dto.EmTextbookOnGetPageReq{}
+	s := service.EmTextbookOn{}
+	err := e.MakeContext(c).
+		MakeOrm().
+		Bind(&req).
+		MakeService(&s.Service).
+		Errors
+	if err != nil {
+		e.Logger.Error(err)
+		e.Error(500, err, err.Error())
+		return
+	}
 
 	p := actions.GetPermissionFromContext(c)
 	list := make([]models.EmTextbookOn, 0)
@@ -50,7 +50,7 @@ func (e EmTextbookOn) GetPage(c *gin.Context) {
 	err = s.GetPage(&req, p, &list, &count)
 	if err != nil {
 		e.Error(500, err, fmt.Sprintf("获取教材出库信息失败，\r\n失败信息 %s", err.Error()))
-        return
+		return
 	}
 
 	e.PageOK(list, int(count), req.GetPageIndex(), req.GetPageSize(), "查询成功")
@@ -67,7 +67,7 @@ func (e EmTextbookOn) GetPage(c *gin.Context) {
 func (e EmTextbookOn) Get(c *gin.Context) {
 	req := dto.EmTextbookOnGetReq{}
 	s := service.EmTextbookOn{}
-    err := e.MakeContext(c).
+	err := e.MakeContext(c).
 		MakeOrm().
 		Bind(&req).
 		MakeService(&s.Service).
@@ -83,10 +83,10 @@ func (e EmTextbookOn) Get(c *gin.Context) {
 	err = s.Get(&req, p, &object)
 	if err != nil {
 		e.Error(500, err, fmt.Sprintf("获取教材出库信息失败，\r\n失败信息 %s", err.Error()))
-        return
+		return
 	}
 
-	e.OK( object, "查询成功")
+	e.OK(object, "查询成功")
 }
 
 // Insert 创建教材出库信息
@@ -100,25 +100,25 @@ func (e EmTextbookOn) Get(c *gin.Context) {
 // @Router /api/v1/em-textbook-on [post]
 // @Security Bearer
 func (e EmTextbookOn) Insert(c *gin.Context) {
-    req := dto.EmTextbookOnInsertReq{}
-    s := service.EmTextbookOn{}
-    err := e.MakeContext(c).
-        MakeOrm().
-        Bind(&req).
-        MakeService(&s.Service).
-        Errors
-    if err != nil {
-        e.Logger.Error(err)
-        e.Error(500, err, err.Error())
-        return
-    }
+	req := dto.EmTextbookOnInsertReq{}
+	s := service.EmTextbookOn{}
+	err := e.MakeContext(c).
+		MakeOrm().
+		Bind(&req).
+		MakeService(&s.Service).
+		Errors
+	if err != nil {
+		e.Logger.Error(err)
+		e.Error(500, err, err.Error())
+		return
+	}
 	// 设置创建人
 	req.SetCreateBy(user.GetUserId(c))
 
 	err = s.Insert(&req)
 	if err != nil {
 		e.Error(500, err, fmt.Sprintf("创建教材出库信息失败，\r\n失败信息 %s", err.Error()))
-        return
+		return
 	}
 
 	e.OK(req.GetId(), "创建成功")
@@ -136,27 +136,27 @@ func (e EmTextbookOn) Insert(c *gin.Context) {
 // @Router /api/v1/em-textbook-on/{id} [put]
 // @Security Bearer
 func (e EmTextbookOn) Update(c *gin.Context) {
-    req := dto.EmTextbookOnUpdateReq{}
-    s := service.EmTextbookOn{}
-    err := e.MakeContext(c).
-        MakeOrm().
-        Bind(&req).
-        MakeService(&s.Service).
-        Errors
-    if err != nil {
-        e.Logger.Error(err)
-        e.Error(500, err, err.Error())
-        return
-    }
+	req := dto.EmTextbookOnUpdateReq{}
+	s := service.EmTextbookOn{}
+	err := e.MakeContext(c).
+		MakeOrm().
+		Bind(&req).
+		MakeService(&s.Service).
+		Errors
+	if err != nil {
+		e.Logger.Error(err)
+		e.Error(500, err, err.Error())
+		return
+	}
 	req.SetUpdateBy(user.GetUserId(c))
 	p := actions.GetPermissionFromContext(c)
 
 	err = s.Update(&req, p)
 	if err != nil {
 		e.Error(500, err, fmt.Sprintf("修改教材出库信息失败，\r\n失败信息 %s", err.Error()))
-        return
+		return
 	}
-	e.OK( req.GetId(), "修改成功")
+	e.OK(req.GetId(), "修改成功")
 }
 
 // Delete 删除教材出库信息
@@ -168,18 +168,18 @@ func (e EmTextbookOn) Update(c *gin.Context) {
 // @Router /api/v1/em-textbook-on [delete]
 // @Security Bearer
 func (e EmTextbookOn) Delete(c *gin.Context) {
-    s := service.EmTextbookOn{}
-    req := dto.EmTextbookOnDeleteReq{}
-    err := e.MakeContext(c).
-        MakeOrm().
-        Bind(&req).
-        MakeService(&s.Service).
-        Errors
-    if err != nil {
-        e.Logger.Error(err)
-        e.Error(500, err, err.Error())
-        return
-    }
+	s := service.EmTextbookOn{}
+	req := dto.EmTextbookOnDeleteReq{}
+	err := e.MakeContext(c).
+		MakeOrm().
+		Bind(&req).
+		MakeService(&s.Service).
+		Errors
+	if err != nil {
+		e.Logger.Error(err)
+		e.Error(500, err, err.Error())
+		return
+	}
 
 	// req.SetUpdateBy(user.GetUserId(c))
 	p := actions.GetPermissionFromContext(c)
@@ -187,7 +187,7 @@ func (e EmTextbookOn) Delete(c *gin.Context) {
 	err = s.Remove(&req, p)
 	if err != nil {
 		e.Error(500, err, fmt.Sprintf("删除教材出库信息失败，\r\n失败信息 %s", err.Error()))
-        return
+		return
 	}
-	e.OK( req.GetId(), "删除成功")
+	e.OK(req.GetId(), "删除成功")
 }

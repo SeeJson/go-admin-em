@@ -1,7 +1,7 @@
 package apis
 
 import (
-    "fmt"
+	"fmt"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-admin-team/go-admin-core/sdk/api"
@@ -34,18 +34,18 @@ type EmStudent struct {
 // @Router /api/v1/em-student [get]
 // @Security Bearer
 func (e EmStudent) GetPage(c *gin.Context) {
-    req := dto.EmStudentGetPageReq{}
-    s := service.EmStudent{}
-    err := e.MakeContext(c).
-        MakeOrm().
-        Bind(&req).
-        MakeService(&s.Service).
-        Errors
-   	if err != nil {
-   		e.Logger.Error(err)
-   		e.Error(500, err, err.Error())
-   		return
-   	}
+	req := dto.EmStudentGetPageReq{}
+	s := service.EmStudent{}
+	err := e.MakeContext(c).
+		MakeOrm().
+		Bind(&req).
+		MakeService(&s.Service).
+		Errors
+	if err != nil {
+		e.Logger.Error(err)
+		e.Error(500, err, err.Error())
+		return
+	}
 
 	p := actions.GetPermissionFromContext(c)
 	list := make([]models.EmStudent, 0)
@@ -54,7 +54,7 @@ func (e EmStudent) GetPage(c *gin.Context) {
 	err = s.GetPage(&req, p, &list, &count)
 	if err != nil {
 		e.Error(500, err, fmt.Sprintf("获取学生信息失败，\r\n失败信息 %s", err.Error()))
-        return
+		return
 	}
 
 	e.PageOK(list, int(count), req.GetPageIndex(), req.GetPageSize(), "查询成功")
@@ -71,7 +71,7 @@ func (e EmStudent) GetPage(c *gin.Context) {
 func (e EmStudent) Get(c *gin.Context) {
 	req := dto.EmStudentGetReq{}
 	s := service.EmStudent{}
-    err := e.MakeContext(c).
+	err := e.MakeContext(c).
 		MakeOrm().
 		Bind(&req).
 		MakeService(&s.Service).
@@ -87,10 +87,10 @@ func (e EmStudent) Get(c *gin.Context) {
 	err = s.Get(&req, p, &object)
 	if err != nil {
 		e.Error(500, err, fmt.Sprintf("获取学生信息失败，\r\n失败信息 %s", err.Error()))
-        return
+		return
 	}
 
-	e.OK( object, "查询成功")
+	e.OK(object, "查询成功")
 }
 
 // Insert 创建学生信息
@@ -104,25 +104,25 @@ func (e EmStudent) Get(c *gin.Context) {
 // @Router /api/v1/em-student [post]
 // @Security Bearer
 func (e EmStudent) Insert(c *gin.Context) {
-    req := dto.EmStudentInsertReq{}
-    s := service.EmStudent{}
-    err := e.MakeContext(c).
-        MakeOrm().
-        Bind(&req).
-        MakeService(&s.Service).
-        Errors
-    if err != nil {
-        e.Logger.Error(err)
-        e.Error(500, err, err.Error())
-        return
-    }
+	req := dto.EmStudentInsertReq{}
+	s := service.EmStudent{}
+	err := e.MakeContext(c).
+		MakeOrm().
+		Bind(&req).
+		MakeService(&s.Service).
+		Errors
+	if err != nil {
+		e.Logger.Error(err)
+		e.Error(500, err, err.Error())
+		return
+	}
 	// 设置创建人
 	req.SetCreateBy(user.GetUserId(c))
 
 	err = s.Insert(&req)
 	if err != nil {
 		e.Error(500, err, fmt.Sprintf("创建学生信息失败，\r\n失败信息 %s", err.Error()))
-        return
+		return
 	}
 
 	e.OK(req.GetId(), "创建成功")
@@ -140,27 +140,27 @@ func (e EmStudent) Insert(c *gin.Context) {
 // @Router /api/v1/em-student/{id} [put]
 // @Security Bearer
 func (e EmStudent) Update(c *gin.Context) {
-    req := dto.EmStudentUpdateReq{}
-    s := service.EmStudent{}
-    err := e.MakeContext(c).
-        MakeOrm().
-        Bind(&req).
-        MakeService(&s.Service).
-        Errors
-    if err != nil {
-        e.Logger.Error(err)
-        e.Error(500, err, err.Error())
-        return
-    }
+	req := dto.EmStudentUpdateReq{}
+	s := service.EmStudent{}
+	err := e.MakeContext(c).
+		MakeOrm().
+		Bind(&req).
+		MakeService(&s.Service).
+		Errors
+	if err != nil {
+		e.Logger.Error(err)
+		e.Error(500, err, err.Error())
+		return
+	}
 	req.SetUpdateBy(user.GetUserId(c))
 	p := actions.GetPermissionFromContext(c)
 
 	err = s.Update(&req, p)
 	if err != nil {
 		e.Error(500, err, fmt.Sprintf("修改学生信息失败，\r\n失败信息 %s", err.Error()))
-        return
+		return
 	}
-	e.OK( req.GetId(), "修改成功")
+	e.OK(req.GetId(), "修改成功")
 }
 
 // Delete 删除学生信息
@@ -172,18 +172,18 @@ func (e EmStudent) Update(c *gin.Context) {
 // @Router /api/v1/em-student [delete]
 // @Security Bearer
 func (e EmStudent) Delete(c *gin.Context) {
-    s := service.EmStudent{}
-    req := dto.EmStudentDeleteReq{}
-    err := e.MakeContext(c).
-        MakeOrm().
-        Bind(&req).
-        MakeService(&s.Service).
-        Errors
-    if err != nil {
-        e.Logger.Error(err)
-        e.Error(500, err, err.Error())
-        return
-    }
+	s := service.EmStudent{}
+	req := dto.EmStudentDeleteReq{}
+	err := e.MakeContext(c).
+		MakeOrm().
+		Bind(&req).
+		MakeService(&s.Service).
+		Errors
+	if err != nil {
+		e.Logger.Error(err)
+		e.Error(500, err, err.Error())
+		return
+	}
 
 	// req.SetUpdateBy(user.GetUserId(c))
 	p := actions.GetPermissionFromContext(c)
@@ -191,7 +191,7 @@ func (e EmStudent) Delete(c *gin.Context) {
 	err = s.Remove(&req, p)
 	if err != nil {
 		e.Error(500, err, fmt.Sprintf("删除学生信息失败，\r\n失败信息 %s", err.Error()))
-        return
+		return
 	}
-	e.OK( req.GetId(), "删除成功")
+	e.OK(req.GetId(), "删除成功")
 }

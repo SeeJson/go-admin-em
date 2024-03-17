@@ -3,7 +3,7 @@ package service
 import (
 	"errors"
 
-    "github.com/go-admin-team/go-admin-core/sdk/service"
+	"github.com/go-admin-team/go-admin-core/sdk/service"
 	"gorm.io/gorm"
 
 	"go-admin/app/admin/models"
@@ -59,9 +59,9 @@ func (e *EmCollegeInfo) Get(d *dto.EmCollegeInfoGetReq, p *actions.DataPermissio
 
 // Insert 创建EmCollegeInfo对象
 func (e *EmCollegeInfo) Insert(c *dto.EmCollegeInfoInsertReq) error {
-    var err error
-    var data models.EmCollegeInfo
-    c.Generate(&data)
+	var err error
+	var data models.EmCollegeInfo
+	c.Generate(&data)
 	err = e.Orm.Create(&data).Error
 	if err != nil {
 		e.Log.Errorf("EmCollegeInfoService Insert error:%s \r\n", err)
@@ -72,22 +72,22 @@ func (e *EmCollegeInfo) Insert(c *dto.EmCollegeInfoInsertReq) error {
 
 // Update 修改EmCollegeInfo对象
 func (e *EmCollegeInfo) Update(c *dto.EmCollegeInfoUpdateReq, p *actions.DataPermission) error {
-    var err error
-    var data = models.EmCollegeInfo{}
-    e.Orm.Scopes(
-            actions.Permission(data.TableName(), p),
-        ).First(&data, c.GetId())
-    c.Generate(&data)
+	var err error
+	var data = models.EmCollegeInfo{}
+	e.Orm.Scopes(
+		actions.Permission(data.TableName(), p),
+	).First(&data, c.GetId())
+	c.Generate(&data)
 
-    db := e.Orm.Save(&data)
-    if err = db.Error; err != nil {
-        e.Log.Errorf("EmCollegeInfoService Save error:%s \r\n", err)
-        return err
-    }
-    if db.RowsAffected == 0 {
-        return errors.New("无权更新该数据")
-    }
-    return nil
+	db := e.Orm.Save(&data)
+	if err = db.Error; err != nil {
+		e.Log.Errorf("EmCollegeInfoService Save error:%s \r\n", err)
+		return err
+	}
+	if db.RowsAffected == 0 {
+		return errors.New("无权更新该数据")
+	}
+	return nil
 }
 
 // Remove 删除EmCollegeInfo
@@ -99,11 +99,11 @@ func (e *EmCollegeInfo) Remove(d *dto.EmCollegeInfoDeleteReq, p *actions.DataPer
 			actions.Permission(data.TableName(), p),
 		).Delete(&data, d.GetId())
 	if err := db.Error; err != nil {
-        e.Log.Errorf("Service RemoveEmCollegeInfo error:%s \r\n", err)
-        return err
-    }
-    if db.RowsAffected == 0 {
-        return errors.New("无权删除该数据")
-    }
+		e.Log.Errorf("Service RemoveEmCollegeInfo error:%s \r\n", err)
+		return err
+	}
+	if db.RowsAffected == 0 {
+		return errors.New("无权删除该数据")
+	}
 	return nil
 }
