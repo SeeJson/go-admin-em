@@ -63,6 +63,7 @@ CREATE TABLE `ev_area_film_info` (
                                      `word_of_mouth` BIGINT(20) DEFAULT NULL COMMENT '口碑',
                                      `score` FLOAT(20) DEFAULT NULL COMMENT '评分',
 
+                                     `create_by` BIGINT(20) DEFAULT NULL COMMENT '创建者',
                                      `update_by` BIGINT(20) DEFAULT NULL COMMENT '更新者',
                                      `created_at` DATETIME(3) DEFAULT NULL COMMENT '创建时间',
                                      `updated_at` DATETIME(3) DEFAULT NULL COMMENT '最后更新时间',
@@ -75,6 +76,7 @@ DROP TABLE ev_country;
 CREATE TABLE `ev_country` (
                               `id` INT(10) NOT NULL AUTO_INCREMENT,
                               `name` VARCHAR(50) DEFAULT NULL COMMENT '国家名' ,
+                              `create_by` BIGINT(20) DEFAULT NULL COMMENT '创建者',
                               `update_by` BIGINT(20) DEFAULT NULL COMMENT '更新者',
                               `created_at` DATETIME(3) DEFAULT NULL COMMENT '创建时间',
                               `updated_at` DATETIME(3) DEFAULT NULL COMMENT '最后更新时间',
@@ -86,6 +88,7 @@ DROP TABLE ev_film_type;
 CREATE TABLE `ev_film_type` (
                                 `id` INT(10) NOT NULL AUTO_INCREMENT,
                                 `name` VARCHAR(50) DEFAULT NULL COMMENT '电影类型' ,
+                                `create_by` BIGINT(20) DEFAULT NULL COMMENT '创建者',
                                 `update_by` BIGINT(20) DEFAULT NULL COMMENT '更新者',
                                 `created_at` DATETIME(3) DEFAULT NULL COMMENT '创建时间',
                                 `updated_at` DATETIME(3) DEFAULT NULL COMMENT '最后更新时间',
@@ -97,6 +100,7 @@ DROP TABLE ev_film_language;
 CREATE TABLE `ev_film_language` (
                                     `id` INT(10) NOT NULL AUTO_INCREMENT,
                                     `name` VARCHAR(50) DEFAULT NULL COMMENT '语言' ,
+                                    `create_by` BIGINT(20) DEFAULT NULL COMMENT '创建者',
                                     `update_by` BIGINT(20) DEFAULT NULL COMMENT '更新者',
                                     `created_at` DATETIME(3) DEFAULT NULL COMMENT '创建时间',
                                     `updated_at` DATETIME(3) DEFAULT NULL COMMENT '最后更新时间',
@@ -112,6 +116,7 @@ CREATE TABLE `ev_film_score` (
                                  `user_id` BIGINT(20) DEFAULT NULL COMMENT '用户id',
                                  `score` INT(2) DEFAULT NULL COMMENT '评分',
                                  `re_value` FLOAT(20) DEFAULT NULL COMMENT '推荐值',
+                                 `create_by` BIGINT(20) DEFAULT NULL COMMENT '创建者',
                                  `update_by` BIGINT(20) DEFAULT NULL COMMENT '更新者',
                                  `created_at` DATETIME(3) DEFAULT NULL COMMENT '创建时间',
                                  `updated_at` DATETIME(3) DEFAULT NULL COMMENT '最后更新时间',
