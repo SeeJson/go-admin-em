@@ -7,8 +7,8 @@ CREATE TABLE `ev_film_info` (
                                 `lead_actor` VARCHAR(100) DEFAULT NULL COMMENT '主演',
                                 `director` VARCHAR(30) DEFAULT NULL COMMENT '导演',
                                 `brief_introduction` TEXT DEFAULT NULL COMMENT '简介',
-                                `cover` BIGINT(20) DEFAULT NULL COMMENT '封面',
-                                `release_time` DATETgozeroIME(3) DEFAULT NULL COMMENT '上映时间',
+                                `cover` VARCHAR(100 DEFAULT NULL COMMENT '封面',
+                                `release_time` DATETIME(3) DEFAULT NULL COMMENT '上映时间',
                                 `release_release` VARCHAR(50) DEFAULT NULL COMMENT '上映地区',
                                 `country` INT(2) DEFAULT NULL COMMENT '国家',
                                 `type` INT(1) DEFAULT NULL COMMENT '电影类型',
@@ -48,7 +48,7 @@ DROP TABLE ev_area_film_info;
 CREATE TABLE `ev_area_film_info` (
                                      `id` INT(10) NOT NULL AUTO_INCREMENT,
                                      `film_id` BIGINT(20) DEFAULT NULL COMMENT '电影id',
-                                     `level` VARCHAR(50) DEFAULT NULL COMMENT '地区级别 1:一线城市 2：二线城市 3：三线城市 4：其他城市 5：北美 6：欧美 7：东亚 8：日韩 9：非洲' ,
+                                     `level` VARCHAR(50) DEFAULT NULL COMMENT '城市级别 1:一线城市 2：二线城市 3：三线城市 4：其他城市 5：北美 6：欧美 7：东亚 8：日韩 9：非洲' ,
                                      `num_people` BIGINT(20) DEFAULT NULL COMMENT '观看人次',
 
                                      `release_time` DATETIME(3) DEFAULT NULL COMMENT '上映时间',
@@ -70,7 +70,7 @@ CREATE TABLE `ev_area_film_info` (
                                      `updated_at` DATETIME(3) DEFAULT NULL COMMENT '最后更新时间',
                                      `deleted_at` DATETIME(3) DEFAULT NULL COMMENT '删除时间',
                                      PRIMARY KEY (`id`)
-) ENGINE = INNODB AUTO_INCREMENT = 1 COMMENT = '地区-影片票房信息';
+) ENGINE = INNODB AUTO_INCREMENT = 1 COMMENT = '地区影片票房信息';
 
 DROP TABLE ev_film_score;
 
