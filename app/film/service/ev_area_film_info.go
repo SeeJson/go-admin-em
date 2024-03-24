@@ -2,24 +2,24 @@ package service
 
 import (
 	"errors"
+	"go-admin/app/film/models"
+	"go-admin/app/film/service/dto"
 
 	"github.com/go-admin-team/go-admin-core/sdk/service"
 	"gorm.io/gorm"
 
-	"go-admin/app/admin/models"
-	"go-admin/app/admin/service/dto"
 	"go-admin/common/actions"
 	cDto "go-admin/common/dto"
 )
 
-type EvFilmInfo struct {
+type EvAreaFilmInfo struct {
 	service.Service
 }
 
-// GetPage 获取EvFilmInfo列表
-func (e *EvFilmInfo) GetPage(c *dto.EvFilmInfoGetPageReq, p *actions.DataPermission, list *[]models.EvFilmInfo, count *int64) error {
+// GetPage 获取EvAreaFilmInfo列表
+func (e *EvAreaFilmInfo) GetPage(c *dto.EvAreaFilmInfoGetPageReq, p *actions.DataPermission, list *[]models.EvAreaFilmInfo, count *int64) error {
 	var err error
-	var data models.EvFilmInfo
+	var data models.EvAreaFilmInfo
 
 	err = e.Orm.Model(&data).
 		Scopes(
@@ -30,15 +30,15 @@ func (e *EvFilmInfo) GetPage(c *dto.EvFilmInfoGetPageReq, p *actions.DataPermiss
 		Find(list).Limit(-1).Offset(-1).
 		Count(count).Error
 	if err != nil {
-		e.Log.Errorf("EvFilmInfoService GetPage error:%s \r\n", err)
+		e.Log.Errorf("EvAreaFilmInfoService GetPage error:%s \r\n", err)
 		return err
 	}
 	return nil
 }
 
-// Get 获取EvFilmInfo对象
-func (e *EvFilmInfo) Get(d *dto.EvFilmInfoGetReq, p *actions.DataPermission, model *models.EvFilmInfo) error {
-	var data models.EvFilmInfo
+// Get 获取EvAreaFilmInfo对象
+func (e *EvAreaFilmInfo) Get(d *dto.EvAreaFilmInfoGetReq, p *actions.DataPermission, model *models.EvAreaFilmInfo) error {
+	var data models.EvAreaFilmInfo
 
 	err := e.Orm.Model(&data).
 		Scopes(
@@ -47,7 +47,7 @@ func (e *EvFilmInfo) Get(d *dto.EvFilmInfoGetReq, p *actions.DataPermission, mod
 		First(model, d.GetId()).Error
 	if err != nil && errors.Is(err, gorm.ErrRecordNotFound) {
 		err = errors.New("查看对象不存在或无权查看")
-		e.Log.Errorf("Service GetEvFilmInfo error:%s \r\n", err)
+		e.Log.Errorf("Service GetEvAreaFilmInfo error:%s \r\n", err)
 		return err
 	}
 	if err != nil {
@@ -57,23 +57,23 @@ func (e *EvFilmInfo) Get(d *dto.EvFilmInfoGetReq, p *actions.DataPermission, mod
 	return nil
 }
 
-// Insert 创建EvFilmInfo对象
-func (e *EvFilmInfo) Insert(c *dto.EvFilmInfoInsertReq) error {
+// Insert 创建EvAreaFilmInfo对象
+func (e *EvAreaFilmInfo) Insert(c *dto.EvAreaFilmInfoInsertReq) error {
 	var err error
-	var data models.EvFilmInfo
+	var data models.EvAreaFilmInfo
 	c.Generate(&data)
 	err = e.Orm.Create(&data).Error
 	if err != nil {
-		e.Log.Errorf("EvFilmInfoService Insert error:%s \r\n", err)
+		e.Log.Errorf("EvAreaFilmInfoService Insert error:%s \r\n", err)
 		return err
 	}
 	return nil
 }
 
-// Update 修改EvFilmInfo对象
-func (e *EvFilmInfo) Update(c *dto.EvFilmInfoUpdateReq, p *actions.DataPermission) error {
+// Update 修改EvAreaFilmInfo对象
+func (e *EvAreaFilmInfo) Update(c *dto.EvAreaFilmInfoUpdateReq, p *actions.DataPermission) error {
 	var err error
-	var data = models.EvFilmInfo{}
+	var data = models.EvAreaFilmInfo{}
 	e.Orm.Scopes(
 		actions.Permission(data.TableName(), p),
 	).First(&data, c.GetId())
@@ -81,7 +81,7 @@ func (e *EvFilmInfo) Update(c *dto.EvFilmInfoUpdateReq, p *actions.DataPermissio
 
 	db := e.Orm.Save(&data)
 	if err = db.Error; err != nil {
-		e.Log.Errorf("EvFilmInfoService Save error:%s \r\n", err)
+		e.Log.Errorf("EvAreaFilmInfoService Save error:%s \r\n", err)
 		return err
 	}
 	if db.RowsAffected == 0 {
@@ -90,16 +90,16 @@ func (e *EvFilmInfo) Update(c *dto.EvFilmInfoUpdateReq, p *actions.DataPermissio
 	return nil
 }
 
-// Remove 删除EvFilmInfo
-func (e *EvFilmInfo) Remove(d *dto.EvFilmInfoDeleteReq, p *actions.DataPermission) error {
-	var data models.EvFilmInfo
+// Remove 删除EvAreaFilmInfo
+func (e *EvAreaFilmInfo) Remove(d *dto.EvAreaFilmInfoDeleteReq, p *actions.DataPermission) error {
+	var data models.EvAreaFilmInfo
 
 	db := e.Orm.Model(&data).
 		Scopes(
 			actions.Permission(data.TableName(), p),
 		).Delete(&data, d.GetId())
 	if err := db.Error; err != nil {
-		e.Log.Errorf("Service RemoveEvFilmInfo error:%s \r\n", err)
+		e.Log.Errorf("Service RemoveEvAreaFilmInfo error:%s \r\n", err)
 		return err
 	}
 	if db.RowsAffected == 0 {

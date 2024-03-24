@@ -29,8 +29,8 @@ type EvFilmOnline struct {
 // @Router /api/v1/ev-film-online [get]
 // @Security Bearer
 func (e EvFilmOnline) GetPage(c *gin.Context) {
-	req := dto.EvFilmOnlineGetPageReq{}
-	s := service.EvFilmOnline{}
+	req := dto.EvFilmInfoGetPageReq{}
+	s := service.EvFilmInfo{}
 	err := e.MakeContext(c).
 		MakeOrm().
 		Bind(&req).
@@ -41,18 +41,26 @@ func (e EvFilmOnline) GetPage(c *gin.Context) {
 		e.Error(500, err, err.Error())
 		return
 	}
-
 	p := actions.GetPermissionFromContext(c)
-	list := make([]models.EvFilmOnline, 0)
-	var count int64
-
-	err = s.GetPage(&req, p, &list, &count)
-	if err != nil {
-		e.Error(500, err, fmt.Sprintf("获取上映电影失败，\r\n失败信息 %s", err.Error()))
-		return
+	mapoxOffice := make(map[string]interface{})
+	// 获取票房
+	if err = s.GetBasepf(req, p, mapoxOffice, "box_office"); err != nil {
+		e.Error(500, err, fmt.Sprintf("获取电影信息失败，\r\n失败信息 %s", err.Error()))
+	}
+	// 获取人次
+	if err = s.GetBaserc(req, p, mapoxOffice, "release_num_people"); err != nil {
+		e.Error(500, err, fmt.Sprintf("获取电影信息失败，\r\n失败信息 %s", err.Error()))
+	}
+	// 获取场次
+	if err = s.GetBasecc(req, p, mapoxOffice, "release_venne"); err != nil {
+		e.Error(500, err, fmt.Sprintf("获取电影信息失败，\r\n失败信息 %s", err.Error()))
+	}
+	// 获取上座率
+	if err = s.GetBaseszl(req, p, mapoxOffice, "occupancy_rate"); err != nil {
+		e.Error(500, err, fmt.Sprintf("获取电影信息失败，\r\n失败信息 %s", err.Error()))
 	}
 
-	e.PageOK(list, int(count), req.GetPageIndex(), req.GetPageSize(), "查询成功")
+	e.OK(mapoxOffice, "查询成功")
 }
 
 // Get 获取上映电影

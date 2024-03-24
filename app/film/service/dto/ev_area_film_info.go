@@ -1,9 +1,9 @@
 package dto
 
 import (
+	"go-admin/app/film/models"
 	"time"
 
-	"go-admin/app/admin/models"
 	"go-admin/common/dto"
 	common "go-admin/common/models"
 )
