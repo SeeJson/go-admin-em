@@ -188,12 +188,12 @@ cgo: exec gcc: exec: "gcc": executable file not found in %PATH%
 $ ./go-admin migrate -c config/settings.dev.yml
 
 # ⚠️注意:windows 下使用
-$ go-admin.exe migrate -c config/settings.dev.yml
+$ go-admin.exe migrate -a true  -c config/settings.dev.yml
 
 
 # 启动项目，也可以用IDE进行调试
 # macOS or linux 下使用
-$ ./go-admin server -c config/settings.yml
+$ ./go-admin server -a true -c config/settings.yml
 
 
 # ⚠️注意:windows 下使用
